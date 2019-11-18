@@ -12,11 +12,14 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import ph.devops.student.model.SearchCriteria;
 import ph.devops.student.model.Student;
 import ph.devops.student.repository.StudentRepository;
+import ph.devops.student.search.StudentSpecification;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,7 +30,6 @@ import static org.junit.Assert.assertEquals;
 public class StudentApplicationTests {
 
     private int definedPort = 9080;
-
 
     private Student classA1;
 
@@ -103,6 +105,16 @@ public class StudentApplicationTests {
         JSONArray jsonArray = JsonPath.read(result.getBody(), "$");
         assertEquals(200, result.getStatusCodeValue());
         assertEquals(4, jsonArray.size());
+    }
+
+    @Test
+    public void testGetClassA1List() {
+        // Not an API Level testing
+        // Test has 3 Students under A1 Class
+        StudentSpecification spec =
+                new StudentSpecification(new SearchCriteria("class1", ":", "A1"));
+        List<Student> results = repository.findAll(spec);
+        assertEquals(3, results.size());
     }
 
     // ERROR SCENARIO
