@@ -108,16 +108,19 @@ public class StudentApplicationTests {
     }
 
     @Test
-    public void testGetClassA1List() {
-        // Not an API Level testing
-        // Test has 3 Students under A1 Class
-        StudentSpecification spec =
-                new StudentSpecification(new SearchCriteria("class1", ":", "A1"));
-        List<Student> results = repository.findAll(spec);
-        assertEquals(3, results.size());
+    public void testGetClassA1List() throws URISyntaxException {
+        String fieldName = "class1";
+        String value = "A1";
+        RestTemplate restTemplate = new RestTemplate();
+        String baseUrl = "http://localhost:" + definedPort + "/api/fetchstudent?fieldName=" + fieldName + "&value=" + value;
+        URI uri = new URI(baseUrl);
+        ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
+        JSONArray jsonArray = JsonPath.read(result.getBody(), "$");
+        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(3, jsonArray.size());
     }
 
-    // ERROR SCENARIO
+    // ERROR TEST CASES
     @Test
     @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:data.sql")
     public void testGetNoneExistingStudent() throws URISyntaxException, JsonProcessingException {
@@ -131,4 +134,17 @@ public class StudentApplicationTests {
         }
     }
 
+
+    @Test
+    public void testGetNotExistClass() throws URISyntaxException {
+        String fieldName = "class1";
+        String value = "AXXX";
+        RestTemplate restTemplate = new RestTemplate();
+        String baseUrl = "http://localhost:" + definedPort + "/api/fetchstudent?fieldName=" + fieldName + "&value=" + value;
+        URI uri = new URI(baseUrl);
+        ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
+        JSONArray jsonArray = JsonPath.read(result.getBody(), "$");
+        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(0, jsonArray.size());
+    }
 }

@@ -1,16 +1,21 @@
 package ph.devops.student.controller;
 
 import ph.devops.student.exception.ResourceNotFoundException;
+import ph.devops.student.model.SearchCriteria;
 import ph.devops.student.model.Student;
 import ph.devops.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ph.devops.student.search.StudentSpecification;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api")
@@ -66,4 +71,18 @@ public class StudentController {
         studentRepository.delete(student);
         return ResponseEntity.ok().build();
     }
+
+
+    @GetMapping("/fetchstudent")
+    @ResponseBody
+    public List<Student> getStudentByField (@RequestParam(name = "fieldName") String fieldName, @RequestParam String value) {
+
+        StudentSpecification spec =
+                new StudentSpecification(new SearchCriteria(fieldName, ":", value));
+        List<Student> results = studentRepository.findAll(spec);
+        return results;
+    }
 }
+
+
+
