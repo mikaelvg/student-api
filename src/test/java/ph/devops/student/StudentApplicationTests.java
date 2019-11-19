@@ -136,7 +136,7 @@ public class StudentApplicationTests {
 
 
     @Test
-    public void testGetNotExistClass() throws URISyntaxException {
+    public void testGetNotExistingClass() throws URISyntaxException {
         String fieldName = "class1";
         String value = "AXXX";
         RestTemplate restTemplate = new RestTemplate();
