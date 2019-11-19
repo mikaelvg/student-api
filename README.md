@@ -1,7 +1,7 @@
 # Student API Java Application
 **Highlights**
   - Uses Springboot Framework
-  - Profile-based deployment. Ex. H2 database for Local and MySQL database for SIT (Bug: Some issues with mySQL, temp disabled)
+  - Profile-based deployment. Ex. H2 database for Local and MySQL database for SIT.
   - Data-Driven Testing - Change the data to change the test scenario.
   - 80% plus Automated test coverage with Low Line-Of-Codes.
   - BlackBox (Standalone) Testing with no test mocks.
@@ -56,3 +56,5 @@ Region: N. Virginia
 # Known Issues
 - MySQL database connection issue.
 - Fix Network access. i.e. limit authorized access, etc.
+**Product Backlog**
+https://github.com/mikaelvg/student-api/projects/3
