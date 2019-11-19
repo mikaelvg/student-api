@@ -7,7 +7,7 @@ pipeline {
 
     agent any
     stages {
-        stage ('Clone repo') {
+        stage ('Repo') {
             steps {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'github-account',
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
@@ -16,7 +16,9 @@ pipeline {
                     }
             }
         }
-        stage ('Build Package') {
+
+
+        stage ('Sonar & Build Package') {
             steps {
                 withMaven(
                     maven: 'maven-3',
