@@ -19,6 +19,6 @@ public class IndexController {
 
     @GetMapping
     public String sayHello() throws UnknownHostException {
-        return "Welcome to Mikael's Student API App! \n Your IP is: " + InetAddress.getLocalHost().getHostAddress();
+        return "Welcome to Mikael's Student API App!";
     }
 }
