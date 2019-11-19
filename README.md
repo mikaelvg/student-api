@@ -51,3 +51,8 @@ Account: admin/M1kael
 https://089131161357.signin.aws.amazon.com/console
 Account: demo/M1kael
 Region: N. Virginia
+
+
+# Known Issues
+- MySQL database connection issue.
+- Fix Network access. i.e. limit authorized access, etc.
