@@ -12,7 +12,7 @@ pipeline {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'github-account',
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                         sh 'echo uname=$USERNAME pwd=$PASSWORD'
-                        git branch: 'master', url: "https://$USERNAME:$PASSWORD@github.com/mikaelvg/student.git"
+                        git branch: 'master', url: "https://$USERNAME:$PASSWORD@github.com/mikaelvg/student-api.git"
                     }
             }
         }
