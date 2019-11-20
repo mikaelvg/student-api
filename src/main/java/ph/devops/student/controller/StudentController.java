@@ -64,6 +64,8 @@ public class StudentController {
          return  updatedStudent;
     }
 
+
+
     @DeleteMapping("/student/{id}")
     public ResponseEntity<?> deleteStudent(@PathVariable(value = "id") Long studentId) {
         Student student = studentRepository.findById(studentId)
@@ -72,6 +74,16 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
+    @RequestMapping(value = "/student/deleteids", method = RequestMethod.DELETE)
+    ResponseEntity massDelete(@PathVariable(value = "ids") List<Long> studentIds)
+    {
+        for (Long id : studentIds) {
+            Student student = studentRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Student", "id", id));
+            studentRepository.delete(student);
+        }
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/fetchstudent")
     @ResponseBody
