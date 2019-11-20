@@ -75,7 +75,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/student/deleteids", method = RequestMethod.DELETE)
-    ResponseEntity massDelete(@PathVariable(value = "ids") List<Long> studentIds)
+    ResponseEntity massDelete(@RequestParam("ids") List<Long> studentIds)
     {
         for (Long id : studentIds) {
             Student student = studentRepository.findById(id)

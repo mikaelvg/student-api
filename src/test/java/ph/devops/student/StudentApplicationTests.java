@@ -107,20 +107,20 @@ public class StudentApplicationTests {
         assertEquals(4, jsonArray.size());
     }
 
-//    @Test
-//    @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:data.sql")
-//    public void testDeleteMassStudent() throws URISyntaxException, JsonProcessingException {
-//        RestTemplate restTemplate = new RestTemplate();
-//        String url = "http://localhost:9080/api//student/deleteids?ids=1,2,3";
-//        URI uri = new URI(url);
-//        restTemplate.delete(uri);
-//
-//        // Note: 5 existing records in database.  Thus, expected result is 5 - 1 = 4
-//        ResponseEntity<String> result = restTemplate.getForEntity(baseUrl, String.class);
-//        JSONArray jsonArray = JsonPath.read(result.getBody(), "$");
-//        assertEquals(200, result.getStatusCodeValue());
-//        assertEquals(4, jsonArray.size());
-//    }
+    @Test
+    @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:data.sql")
+    public void testDeleteMassStudent() throws URISyntaxException, JsonProcessingException {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:9080/api/student/deleteids?ids=1,2,3";
+        URI uri = new URI(url);
+        restTemplate.delete(uri);
+
+        // Note: 5 existing records in database.  Thus, expected result is 5 - 3 = 2
+        ResponseEntity<String> result = restTemplate.getForEntity(baseUrl, String.class);
+        JSONArray jsonArray = JsonPath.read(result.getBody(), "$");
+        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(2, jsonArray.size()); // Deleted 3 records
+    }
 
     @Test
     public void testGetClassA1List() throws URISyntaxException {
