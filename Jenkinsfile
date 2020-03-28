@@ -23,7 +23,7 @@ pipeline {
                 withMaven(
                     maven: 'maven-3',
                     mavenSettingsConfig: 'jenkins-maven-settings') {
-                    sh "mvn clean package"
+                    sh "mvn clean package -Dmaven.test.skip=true"
                     }
             }
         }
